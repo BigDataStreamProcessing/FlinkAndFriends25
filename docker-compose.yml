@@ -1,0 +1,75 @@
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: flinkdb
+    volumes:
+      - C:/DockerVolumes/FlinkAndFriends2025/mysql:/var/lib/mysql
+
+  jobmanager:
+    image: flink-course-2025
+    command: jobmanager
+    ports:
+      - "8081:8081"
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+    volumes:
+      - C:/DockerVolumes/FlinkAndFriends2025/work:/opt/work     
+
+  taskmanager:
+    image: flink-course-2025
+    command: taskmanager
+    depends_on:
+      - jobmanager
+    deploy:
+      replicas: 2
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 2
+
+  kafka:
+    image: apache/kafka:4.0.0
+    hostname: kafka
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
+      PS1: "\\u@\\h:\\w\\$ "
+    networks:
+      default:
+        ipv4_address: 172.30.1.10
+    volumes:
+      - C:/DockerVolumes/FlinkAndFriends2025/kafka:/tmp/kraft-combined-logs
+
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"   # API
+      - "9001:9001"   # Console UI
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - C:/DockerVolumes/FlinkAndFriends2025/minio:/data
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
