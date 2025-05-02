@@ -2,7 +2,7 @@
 FROM flink:2.0.0-scala_2.12
 
 # Ustaw zmienną środowiskową TERM
-ENV TERM xterm-256color
+ENV TERM=xterm-256color
 
 # Instaluj potrzebne narzędzia 
 RUN apt-get update && apt-get install -y bash nano
