@@ -7,7 +7,7 @@ services:
       MYSQL_ROOT_PASSWORD: my-secret-pw
       MYSQL_DATABASE: flinkdb
     volumes:
-      - C:/DockerVolumes/FlinkAndFriends2025/mysql:/var/lib/mysql
+      - /tmp/FlinkAndFriends25/mysql:/var/lib/mysql
 
   jobmanager:
     image: flink-course-2025
@@ -19,7 +19,7 @@ services:
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
     volumes:
-      - C:/DockerVolumes/FlinkAndFriends2025/work:/opt/work     
+      - /tmp/FlinkAndFriends25/work:/opt/work     
 
   taskmanager:
     image: flink-course-2025
@@ -53,7 +53,7 @@ services:
       default:
         ipv4_address: 172.30.1.10
     volumes:
-      - C:/DockerVolumes/FlinkAndFriends2025/kafka:/tmp/kraft-combined-logs
+      - /tmp/FlinkAndFriends25/kafka:/tmp/kraft-combined-logs
 
   minio:
     image: minio/minio
@@ -65,7 +65,7 @@ services:
       MINIO_ROOT_PASSWORD: minioadmin
     command: server /data --console-address ":9001"
     volumes:
-      - C:/DockerVolumes/FlinkAndFriends2025/minio:/data
+      - /tmp/FlinkAndFriends25/minio:/data
 
 networks:
   default:
