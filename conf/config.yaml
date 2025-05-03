@@ -1,6 +1,6 @@
 blob:
   server:
-    port: '6124'
+    port: '6124-6130'
 taskmanager:
   memory:
     process:
