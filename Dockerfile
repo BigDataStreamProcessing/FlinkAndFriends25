@@ -21,6 +21,7 @@ RUN mkdir /opt/flink/plugins/s3-fs-hadoop; \
     wget -P /opt/flink/lib \
     https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-kafka/4.0.0-2.0/flink-sql-connector-kafka-4.0.0-2.0.jar  \
     https://github.com/knaufk/flink-faker/releases/download/v0.5.3/flink-faker-0.5.3.jar \
+    https://repo1.maven.org/maven2/net/datafaker/datafaker/1.9.0/datafaker-1.9.0.jar \
     https://repo1.maven.org/maven2/org/apache/flink/flink-connector-jdbc/3.3.0-1.20/flink-connector-jdbc-3.3.0-1.20.jar \
     https://repo1.maven.org/maven2/org/apache/flink/flink-connector-kafka/4.0.0-2.0/flink-connector-kafka-4.0.0-2.0.jar \
     https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/9.3.0/mysql-connector-j-9.3.0.jar \
