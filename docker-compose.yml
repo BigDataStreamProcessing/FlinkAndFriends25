@@ -7,7 +7,7 @@ services:
       MYSQL_ROOT_PASSWORD: my-secret-pw
       MYSQL_DATABASE: flinkdb
     volumes:
-      - /tmp/FAndF/mysql:/var/lib/mysql
+      - /tmp/FAndF25/mysql:/var/lib/mysql
 
   jobmanager:
     image: flink-course-2025
@@ -19,8 +19,8 @@ services:
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
     volumes:
-      - /tmp/FAndF/work:/opt/work
-      - /tmp/FAndF/conf/config.yaml:/opt/flink/conf/config.yaml     
+      - /tmp/FAndF25/work:/opt/work
+      - /tmp/FAndF25/conf/config.yaml:/opt/flink/conf/config.yaml     
 
   taskmanager:
     image: flink-course-2025
@@ -35,7 +35,7 @@ services:
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 2
     volumes:
-      - /tmp/FAndF/conf/config.yaml:/opt/flink/conf/config.yaml
+      - /tmp/FAndF25/conf/config.yaml:/opt/flink/conf/config.yaml
 
   kafka:
     image: apache/kafka:4.0.0
@@ -57,7 +57,7 @@ services:
       default:
         ipv4_address: 172.30.1.10
     volumes:
-      - /tmp/FAndF/kafka:/tmp/kraft-combined-logs
+      - /tmp/FAndF25/kafka:/tmp/kraft-combined-logs
 
   minio:
     image: minio/minio
@@ -69,7 +69,7 @@ services:
       MINIO_ROOT_PASSWORD: minioadmin
     command: server /data --console-address ":9001"
     volumes:
-      - /tmp/FAndF/minio:/data
+      - /tmp/FAndF25/minio:/data
 
 networks:
   default:
